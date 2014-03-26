@@ -83,14 +83,14 @@ func BUMerge7Times(s string) string {
 }
 
 func main() {
-    Test(Merge7Times, 
+    Test(Merge7Times,
          "65 82 60 97 93 74 64 52 87 45 32 15",
          "60 65 74 82 93 97 52 64 87 45 32 15")
     Test(Merge7Times,
          "82 84 59 90 31 52 17 88 24 92 83 91",
          "31 52 59 82 84 90 17 24 88 92 83 91")
     Test(BUMerge7Times,
-         "76 13 38 94 47 74 29 64 46 41", 
+         "76 13 38 94 47 74 29 64 46 41",
          "13 38 76 94 29 47 64 74 41 46")
     Trace(Merge7Times,
           "82 76 58 97 21 88 34 33 16 67 93 64")

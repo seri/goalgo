@@ -125,7 +125,7 @@ func RunWorkers(ws []*Worker, e *Experiment) {
 func RunExperiments(ws []*Worker, es []*Experiment) {
     for _, e := range es {
         RunWorkers(ws, e)
-    }    
+    }
 }
 
 func main() {
@@ -139,7 +139,7 @@ func main() {
     - Mergesort cheats the benchmark by operating directly on []int. Other
     sorters have to go through an interface and suffers a significant overhead.
     `)
-    rand.Seed(time.Now().UnixNano())    
+    rand.Seed(time.Now().UnixNano())
     ws := []*Worker {
         NewSorter(sort.GoSort, TenPow(7)),
         NewSorter(sort.SelectionSort, TenPow(4)),

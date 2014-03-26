@@ -1,4 +1,6 @@
-// 
+// QuickUnion is an implementation of the UnionFind API that supports both 
+// `find` and `union` in lgN time. As it delays doing work until the time
+// comes, it's a lazy approach to the dynamic connectivity problem.
 
 package uf
 

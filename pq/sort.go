@@ -1,6 +1,3 @@
-// HeapSort uses 2NlgN compares in the worst case but in practice, quicksort 
-// and even mergesort are faster. HeapSort is unstable.
-
 package pq
 
 import (

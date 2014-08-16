@@ -1,13 +1,3 @@
-/*
-    The balanced binary search tree that we have here in the course is Robert
-    Sedgewick's left-leaning red back tree, which is quite a topic of
-    controversy. By introducing a very simple restriction that all red nodes
-    must lean left, Sedgewick claims that his tree is cleaner to implement
-    than a typical red black tree while suffering no performance penalty. The
-    critics say the reverse is true. Personally, I like the left-leaning red
-    black tree.
-*/
-
 package st
 
 import (

@@ -1,17 +1,3 @@
-/*
-   The pq package introduces the Priority Queue API. As long as a collection
-   has a size, can compare any two elements, can swap any two elements, and
-   knows how to add and remove things in a FIFO manner, it can be made into a 
-   priority queue. 
-   
-   This particular priority queue is known as the Max Heap data structure, which
-   supports Push() and Pop() in logarithmic time.
-
-   The runnable client heap_exercise.go shows how you may use this in practice.
-
-   See: http://algs4.cs.princeton.edu/24pq/
-*/
-
 package pq
 
 import (

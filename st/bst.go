@@ -1,7 +1,3 @@
-// We provide, first of all, a naive binary search tree which suffers linear
-// complexity in the worst case although it is actually logarithmic on average,
-// which is certainly not too bad at all. 
-
 package st
 
 import (

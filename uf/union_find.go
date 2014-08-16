@@ -1,7 +1,3 @@
-/*
-*/
-
-
 package uf
 
 type UnionFind interface {

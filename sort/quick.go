@@ -1,11 +1,3 @@
-// QuickSort has quadaratic performance in the worst case and uses 1.39NlgN 
-// compares on average. Because the worst case is highly unlikely thanks to the
-// random shuffle which effectively acts as a performance shield, quicksort is
-// faster than MergeSort in practice. We provide here two versions of QuickSort,
-// the widely known one and Djikstra's QuickSort. The Djikstra version is
-// preferrable when we know that the collection contains many duplicates. Oh and
-// by the way, QuickSort is unstable.
-
 package sort
 
 import (

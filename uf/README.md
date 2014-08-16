@@ -17,7 +17,9 @@ it's a lazy approach to the dynamic connectivity problem.
 
 ## Example
 
-The runnable client uf_client.go benchmarks them against each other.
+The runnable client 
+[uf_client.go](https://github.com/seri/goalgo/blob/master/examples/uf_client.go)
+benchmarks them against each other.
 
 ## References: 
 

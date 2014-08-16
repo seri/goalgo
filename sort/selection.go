@@ -1,6 +1,3 @@
-// SelectionSort is an unstable quadratic sorter using sqr(N)/2 Less() and N 
-// Exch().
-
 package sort
 
 func SelectionSort(a Sortable) {

@@ -1,20 +1,3 @@
-/*
-    Package sort hosts a handful of sorting algorithms abstracted as `Sorter`s.
-
-    Perhaps more interesting than these well-known algorithms are the way that
-    the Go language approaches polymorphism through a flexible interface
-    semantics. One can use type-alias to adapt a known type to a new interface.
-    One can embed an interface into a struct for inheritance.
-
-    The runnable sort_client.go tests these algorithms and benchmarks them 
-    against each other.
-
-    See:
-    1) http://algs4.cs.princeton.edu/21elementary/
-    2) http://algs4.cs.princeton.edu/22mergesort/
-    3) http://algs4.cs.princeton.edu/23quicksort/
-*/
-
 package sort
 
 type Sortable interface {

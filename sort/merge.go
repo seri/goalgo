@@ -1,7 +1,3 @@
-// MergeSort is theoretically optimal with guaranteed ~NlgN compares. This non
-// in-place MergeSort implementation provided in the course cannot be done with 
-// Go in a generic manner. That means MergeSort is not a sort.Sorter.
-
 package sort
 
 import (

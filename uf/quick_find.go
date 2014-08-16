@@ -1,8 +1,3 @@
-// QuickFind is an implementation of the UnionFind API that supports `find` in
-// constant time but it suffers linear complexity with regard to `union`. As it
-// tries doing more work as early as possible, this is so called the eager 
-// approach to the dynamic connectivity problem.
-
 package uf
 
 type QuickFind struct {

@@ -16,17 +16,17 @@ func merge(a, x, y []int) {
             k, i = k + 1, i + 1
             if i == len(x) {
                 copy(a[k:len(a)], y[j:len(y)])
-                return 
+                return
             }
         } else {
             a[k] = y[j]
             k, j = k + 1, j + 1
             if j == len(y) {
                 copy(a[k:len(a)], x[i:len(x)])
-                return 
+                return
             }
         }
-    }   
+    }
 }
 
 func mergeSort(a, b []int) {

@@ -29,7 +29,7 @@ func partition(a Sortable, lo, hi int) int {
 
 func quickSort(a Sortable, lo, hi int) {
     if hi <= lo {
-        return 
+        return
     }
     mid := partition(a, lo, hi)
     quickSort(a, lo, mid - 1)
@@ -38,7 +38,7 @@ func quickSort(a Sortable, lo, hi int) {
 
 func QuickSort(a Sortable) {
     goalgo.Shuffle(a)
-    quickSort(a, 0, a.Size() - 1)    
+    quickSort(a, 0, a.Size() - 1)
 }
 
 func djikstraPartition(a Sortable, lo, hi int) (lt, gt int) {

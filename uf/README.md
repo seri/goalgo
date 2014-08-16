@@ -22,4 +22,4 @@ benchmarks them against each other.
 
 ## References: 
 
-[1] http://algs4.cs.princeton.edu/15uf/
+1. http://algs4.cs.princeton.edu/15uf/

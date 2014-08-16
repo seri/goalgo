@@ -1,33 +1,3 @@
-/*
-    The graph package works with edge-weighted directed graphs, a flexible 
-    type of graphs that can be adjusted to behave like non-weighted directed
-    graphs or undirected graphs. However, if you want vertice-weighted graphs,
-    for example, you will have to look somwhere else.
-
-    There are many ways one can represent edge-weighted directed graphs. For
-    the sake of simplicity, we shall provide only one such representation. The
-    adjacent list saves some space and performs reasonably well in graphs
-    typically found in practice barring the densest ones.
-
-    Some important graph algorithms are implemented via the following functions
-    (you are recommended to read them in this order):
-
-    - Topological sort: graph.TopoSort()
-    - Cycle detection: graph.HasCycle()
-    - Strongly connected components: graph.SCC()
-    - Minimum spanning tree: graph.MST()
-    - Shortest paths: graph.ShortestPaths()
-
-    See: 
-    1) http://algs4.cs.princeton.edu/41undirected/
-    2) http://algs4.cs.princeton.edu/42directed/
-    3) http://algs4.cs.princeton.edu/43mst/
-    4) http://algs4.cs.princeton.edu/44sp/
-    5) http://www.seas.gwu.edu/~simhaweb/alg/lectures/module7/module7.html
-    6) https://www.ics.uci.edu/~eppstein/161/960220.html
-    7) http://www.cs.nyu.edu/courses/summer04/G22.1170-001/6a-Graphs-More.pdf
-*/
-
 package graph
 
 import (

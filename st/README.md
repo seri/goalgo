@@ -23,7 +23,7 @@ test and benchmarks the two trees.
 
 ## References
 
-[1] http://algs4.cs.princeton.edu/32bst/
-[2] http://algs4.cs.princeton.edu/33balanced/
-[3] http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
-[4] [Left-Leaning Red-Black Trees Considered Harmful](http://www.read.seas.harvard.edu/~kohler/notes/llrb.html)
+1. http://algs4.cs.princeton.edu/32bst/
+2. http://algs4.cs.princeton.edu/33balanced/
+3. http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
+4. [Left-Leaning Red-Black Trees Considered Harmful](http://www.read.seas.harvard.edu/~kohler/notes/llrb.html)

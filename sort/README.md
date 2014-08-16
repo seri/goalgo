@@ -41,6 +41,6 @@ tests the correctness of these algorithms and benchmarks them.
 
 ## References
 
-[1] http://algs4.cs.princeton.edu/21elementary/
-[2] http://algs4.cs.princeton.edu/22mergesort/
-[3] http://algs4.cs.princeton.edu/23quicksort/
+1. http://algs4.cs.princeton.edu/21elementary/
+2. http://algs4.cs.princeton.edu/22mergesort/
+3. http://algs4.cs.princeton.edu/23quicksort/

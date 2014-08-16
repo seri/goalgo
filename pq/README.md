@@ -6,7 +6,7 @@ priority queue.
 This particular implementation of priority queue is known as the maximum heap
 data structure, which supports push and pop operations in logarithmic time.
 
-We also implement HeapSort, which uses 2NlgN compares in the worst case but in
+We also implement HeapSort, which uses `2NlgN` compares in the worst case but in
 practice, QuickSort and even MergeSort are faster. HeapSort is unstable.
 
 ## Example
@@ -16,4 +16,4 @@ shows how you may use this package in practice.
 
 ## References
 
-[1] http://algs4.cs.princeton.edu/24pq/
+1. http://algs4.cs.princeton.edu/24pq/

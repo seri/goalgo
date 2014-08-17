@@ -7,7 +7,7 @@
 // 
 // Examples:
 // 
-//		https://github.com/seri/goalgo/blob/master/examples/sort_client.go
+//		* https://github.com/seri/goalgo/blob/master/examples/sort_client.go
 //		tests the correctness of these algorithms and benchmarks them.
 // 
 // References:

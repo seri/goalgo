@@ -12,6 +12,12 @@ type llrbNode struct {
                // the value true means red while false means black
 }
 
+// The self-balancing search tree that we have here is Robert Sedgewick's
+// left-leaning red back tree, which is quite a topic of controversy [4]. By
+// introducing a very simple restriction that all red nodes must lean left,
+// Sedgewick claims that his tree is cleaner to implement than a typical red black
+// tree while suffering no performance penalty. The critics say the reverse is
+// true. Personally, I like the left-leaning red black tree.
 type LLRB struct {
     root *llrbNode
 }
@@ -25,14 +31,17 @@ func NewLLRB() *LLRB {
 // repetition by introducing a common Node interface, the added complexity is 
 // not worth it.
 
+// O(1)
 func (me LLRB) Empty() bool {
     return me.root == nil
 }
 
+// O(lgN)
 func (me *LLRB) Contains(k Comparable) bool {
     return llrbGet(me.root, k) != nil
 }
 
+// O(lgN)
 func (me *LLRB) Get(k Comparable) interface{} {
     if node := llrbGet(me.root, k); node != nil {
         return node.value
@@ -53,6 +62,7 @@ func llrbGet(root *llrbNode, k Comparable) *llrbNode {
     return root
 }
 
+// O(NlgN)
 func (me *LLRB) Flatten() []Item {
     a := make([]Item, 0)
     q := list.New()
@@ -70,14 +80,12 @@ func (me *LLRB) Flatten() []Item {
     return a
 }
 
-/*
-    Local operations on nodes which you can combine to implement global mutators
-    on the tree, namely Put() and Remove(). Pay attention to how these helpers
-    pass the redness around.
-*/
+
+// Local operations on nodes which you can combine to implement global mutators
+// on the tree, namely Put() and Remove(). Pay attention to how these helpers
+// pass the redness around.
 
 // A nil node is considered black.
-
 func llrbIsRed(node *llrbNode) bool {
     if node == nil {
         return false
@@ -87,7 +95,6 @@ func llrbIsRed(node *llrbNode) bool {
 
 // Usually called when the right subtree is red. Pass this redness to the left.
 // Do read the paper for an illustation.
-
 func llrbRotateLeft(root *llrbNode) *llrbNode {
     right := root.right
     root.right = right.left
@@ -99,7 +106,6 @@ func llrbRotateLeft(root *llrbNode) *llrbNode {
 
 // Usually called when the left subtree is red. Pass this redness to the right.
 // Do read the paper for an illustation.
-
 func llrbRotateRight(root *llrbNode) *llrbNode {
     left := root.left
     root.left = left.right
@@ -112,7 +118,6 @@ func llrbRotateRight(root *llrbNode) *llrbNode {
 // Flip all the colors of root and its two subtrees. Called either to pass up
 // the redness of both children to the parent (for insertion), or to pass the 
 // redness from the parent down to both children (for deletion).
-
 func llrbFlipColor(root *llrbNode) *llrbNode {
     root.color = !root.color
     root.left.color = !root.left.color
@@ -122,7 +127,6 @@ func llrbFlipColor(root *llrbNode) *llrbNode {
 
 // Fix the current subtree to maintain that the right child must be black and
 // there won't be two immediate consecutive reds on the left.
-
 func llrbFixUp(root *llrbNode) *llrbNode {
     if llrbIsRed(root.right) && !llrbIsRed(root.left) {
         root = llrbRotateLeft(root)
@@ -136,14 +140,13 @@ func llrbFixUp(root *llrbNode) *llrbNode {
     return root
 }
 
-/*
-    To insert a new key-value pair, we make up a new node and put it in the tree
-    in the same way that we did with a standard binary search tree. We shall
-    color it red. We then walk up the tree right upto the root, fixing whatever
-    violations that have been introduced due to this new red node, and we will 
-    do so with the help of the above operations.
-*/
+// To insert a new key-value pair, we make up a new node and put it in the tree
+// in the same way that we did with a standard binary search tree. We shall
+// color it red. We then walk up the tree right upto the root, fixing whatever
+// violations that have been introduced due to this new red node, and we will
+// do so with the help of the above operations.
 
+// O(lgN)
 func (me *LLRB) Put(k Comparable, v interface{}) {
     me.root = llrbPut(me.root, k, v)
     me.root.color = false // the root is always black
@@ -153,7 +156,6 @@ func llrbPut(root *llrbNode, k Comparable, v interface{}) *llrbNode {
     if root == nil {
         return &llrbNode { k, v, nil, nil, true } // a new node is always red
     }
-
     switch x := k.Compare(root.key); {
     case x < 0:
         root.left = llrbPut(root.left, k, v)
@@ -162,21 +164,17 @@ func llrbPut(root *llrbNode, k Comparable, v interface{}) *llrbNode {
     default:
         root.value = v
     }
-
     return llrbFixUp(root)
 }
 
-/*
-    Deletion in LLRB is serious business so bear it with me.
-    So, the idea is, uhm...
-    Actually, I don't get LLRB deletion either.
-    If you have a clear explanation to share, I would appreciate.
-*/
+// Deletion in LLRB is serious business so bear it with me.
+// So, the idea is, uhm...
+// Actually, I don't get LLRB deletion either.
+// If you have a clear explanation to share, I would appreciate.
 
 // Assume both children are black. We would like to introduce redness in the
 // left subtree. If possible, we will pass this redness from the right one.
 // Read the paper for an illustration.
-
 func llrbMoveRedLeft(root *llrbNode) *llrbNode {
     llrbFlipColor(root)
     if llrbIsRed(root.right.left) {
@@ -190,7 +188,6 @@ func llrbMoveRedLeft(root *llrbNode) *llrbNode {
 // Assume both children are black. We would like to introduce redness in the
 // right subtree. If possible, we will pass this redness from the left one.
 // You should draw a tree here to visualise.
-
 func llrbMoveRedRight(root *llrbNode) *llrbNode {
     llrbFlipColor(root)
     if llrbIsRed(root.left.left) {
@@ -205,7 +202,6 @@ func llrbMoveRedRight(root *llrbNode) *llrbNode {
 // the left subtree lower than that of the right subtree. So as we traverse 
 // left, we keep looking for opportunities to introduce redness in the left
 // subtree.
-
 func llrbRemoveMin(root *llrbNode) *llrbNode {
     if root.left == nil {
         return nil
@@ -218,7 +214,6 @@ func llrbRemoveMin(root *llrbNode) *llrbNode {
 }
 
 // Pick the leftmost node of the tree rooted at root
-
 func llrbLeftMost(root *llrbNode) *llrbNode {
     for root.left != nil {
         root = root.left
@@ -226,8 +221,7 @@ func llrbLeftMost(root *llrbNode) *llrbNode {
     return root
 }
 
-// Finally combine all the helpers.
-
+// O(lgN)
 func (me *LLRB) Remove(k Comparable) {
     // this extra work is done to simplify the code
     if  me.Contains(k) {

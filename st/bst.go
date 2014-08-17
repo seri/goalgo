@@ -10,6 +10,9 @@ type bstNode struct {
     left, right *bstNode
 }
 
+// A BST is a naive binary search tree which suffers linear complexity in the worst
+// case although it is actually logarithmic on average, which is certainly not too
+// bad at all.
 type BST struct {
     root *bstNode
 }
@@ -18,14 +21,17 @@ func NewBST() *BST {
     return &BST { nil }
 }
 
+// O(1)
 func (me BST) Empty() bool {
     return me.root == nil
 }
 
+// O(N) worst, O(lgN) average
 func (me *BST) Contains(k Comparable) bool {
     return bstGet(me.root, k) != nil
 }
 
+// O(N) worst, O(lgN) average
 func (me *BST) Get(k Comparable) interface{} {
     if node := bstGet(me.root, k); node != nil {
         return node.value
@@ -33,10 +39,12 @@ func (me *BST) Get(k Comparable) interface{} {
     return nil
 }
 
+// O(N) worst, O(lgN) average
 func (me *BST) Put(k Comparable, v interface{}) {
     me.root = bstPut(me.root, k, v)
 }
 
+// O(NlgN)
 func (me *BST) Flatten() []Item {
     a := make([]Item, 0)
     q := list.New()
@@ -54,6 +62,7 @@ func (me *BST) Flatten() []Item {
     return a
 }
 
+// O(N) worst, O(lgN) average
 func (me *BST) Remove(k Comparable) {
     me.root = bstRemove(me.root, k)
 }

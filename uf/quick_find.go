@@ -1,5 +1,9 @@
 package uf
 
+// Quick find is an implementation of the union find API that supports find in
+// constant time but it suffers linear complexity with regard to union. As it
+// tries doing more work as early as possible, this is so called the eager approach
+// to the dynamic connectivity problem.
 type QuickFind struct {
     root []int
     count int

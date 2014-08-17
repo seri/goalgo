@@ -30,6 +30,8 @@ func (me *adapter) Pop() interface{} {
     return nil
 }
 
+// Heap sort uses 2NlgN compares in the worst case but in practice, quick sort
+// and even merge sort are faster. Heap sort is unstable.
 func HeapSort(a sort.Sortable) {
     b := adapter { a, a.Size() }
     Heapify(&b)

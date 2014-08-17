@@ -1,6 +1,6 @@
-// Package goalgo provides implementations of many fundamental algorithms, most
+// Package goalgo provides implementations of some fundamental algorithms, most
 // which come from the Algorithms course of the university of Princeton. There are
-// runnable examples for most of them.
+// runnable examples for most of these algorithms.
 package goalgo
 
 import (

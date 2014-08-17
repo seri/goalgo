@@ -1,5 +1,8 @@
 package uf
 
+// Quick union is an implementation of the union find API that supports both find
+// and union in logarithmic time. As it delays doing work until the time comes,
+// it is considered a lazy approach to the dynamic connectivity problem.
 type QuickUnion struct {
     parent []int
     size []int

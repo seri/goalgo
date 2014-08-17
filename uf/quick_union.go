@@ -6,13 +6,14 @@ type QuickUnion struct {
     count int
 }
 
+// Create a new quick union instance with the given number of vertices.
 func NewQuickUnion(size int) *QuickUnion {
     me := new(QuickUnion)
     me.Reset(size)
     return me
 }
 
-// ~ 1
+// Reset this quick union instance to its initial state.
 func (me *QuickUnion) Reset(size int) {
     me.parent = make([]int, size, size)
     me.size = make([]int, size, size)
@@ -23,12 +24,12 @@ func (me *QuickUnion) Reset(size int) {
     }
 }
 
-// ~ 1
+// O(1). Retrieve the number of vertices.
 func (me *QuickUnion) Size() int {
     return len(me.parent)
 }
 
-// ~ 1
+// O(1). Retrieve the number of connected components.
 func (me *QuickUnion) Count() int {
     return me.count
 }
@@ -41,7 +42,7 @@ func (me *QuickUnion) root(p int) int {
     return p
 }
 
-// ~ lgN
+// O(lgN). Whether there is a path between the two vertices p and q.
 func (me *QuickUnion) Connected(p, q int) bool {
     return me.root(p) == me.root(q)
 }
@@ -52,7 +53,7 @@ func (me *QuickUnion) plug(parent, child int) {
     me.size[parent] += me.size[child]
 }
 
-// ~ lgN
+// O(lgN). Add an edge between p and q.
 func (me *QuickUnion) Union(p, q int) {
     pp, qq := me.root(p), me.root(q)
     if pp != qq {

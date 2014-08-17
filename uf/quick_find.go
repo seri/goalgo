@@ -12,7 +12,7 @@ func NewQuickFind(size int) *QuickFind {
     return me
 }
 
-// O(N). Reset this quick find instance to its initial state.
+// Reset this quick find instance to its initial state.
 func (me *QuickFind) Reset(size int) {
     me.root = make([]int, size, size)
     me.count = size

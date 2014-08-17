@@ -1,7 +1,6 @@
-Go implementations of various algorithms introduced by the Algorithms course
-from the university of Princeton. There are runnable examples for most of them.
+Full documentation: http://godoc.org/github.com/seri/goalgo
 
-In case you are new to the Go ecosystem, this is a quick start:
+In case you are new to the Go ecosystem, this is a quick start to run things:
 
     $ cd ~
     $ mkdir goroot

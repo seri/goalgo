@@ -5,13 +5,14 @@ type QuickFind struct {
     count int
 }
 
+// Create a new quick find instance with the given number of vertices.
 func NewQuickFind(size int) *QuickFind {
     me := new(QuickFind)
     me.Reset(size)
     return me
 }
 
-// ~ N
+// O(N). Reset this quick find instance to its initial state.
 func (me *QuickFind) Reset(size int) {
     me.root = make([]int, size, size)
     me.count = size
@@ -20,22 +21,22 @@ func (me *QuickFind) Reset(size int) {
     }
 }
 
-// ~ 1
+// O(1). Retrieve the number of vertices.
 func (me *QuickFind) Size() int {
     return len(me.root)
 }
 
-// ~ 1
+// O(1). Retrieve the number of connected components.
 func (me *QuickFind) Count() int {
     return me.count
 }
 
-// ~ 1
+// O(1). Whether there is a path between the two vertices p and q.
 func (me *QuickFind) Connected(p, q int) bool {
     return me.root[p] == me.root[q]
 }
 
-// ~ N
+// O(N). Add an edge between p and q.
 func (me *QuickFind) Union(p, q int) {
     pp, qq := me.root[p], me.root[q]
     if pp != qq {

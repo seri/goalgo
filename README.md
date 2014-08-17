@@ -1,4 +1,6 @@
-Full documentation: http://godoc.org/github.com/seri/goalgo
+# goalgo 0.2
+
+[Documentation](http://godoc.org/github.com/seri/goalgo)
 
 In case you are new to the Go ecosystem, this is a quick start to run things:
 

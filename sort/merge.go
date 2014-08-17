@@ -36,6 +36,12 @@ func mergeSort(a, b []int) {
     merge(a, b[0:mid], b[mid:n])  // merge them into a so a is now sorted
 }
 
+// Merge sort is theoretically optimal with guaranteed ~NlgN compares, although in
+// practice it is outperformed by quick sort. Depending on the merging strategy, merge
+// sort may be stable or unstable. Our implementation produces a stable sort. Notice
+// that merge sort only accepts an int slice. This is because our implementation
+// depends on creating a copy of the initial collection which cannot be done in Go in
+// a generic manner for the moment.
 func MergeSort(a []int) {
     b := make([]int, len(a))
     copy(b, a)

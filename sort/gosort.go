@@ -1,6 +1,3 @@
-// Sort with Go's standard library. This is used to check the correctness and
-// performances of other sorters.
-
 package sort
 
 import (
@@ -19,6 +16,7 @@ func (me GoSortable) Swap(i, j int) {
     me.Sortable.Exch(i, j)
 }
 
+// Sort using Go's standard library.
 func GoSort(a Sortable) {
     gosort.Sort( &GoSortable { a } )
 }

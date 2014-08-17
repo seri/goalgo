@@ -28,6 +28,10 @@ func quickSort(a Sortable, lo, hi int) {
     quickSort(a, mid + 1, hi)
 }
 
+// In theory, quick sort has quadaratic performance in the worst case and uses 1.39NlgN 
+// compares on average. In practice, however, it routinely outperforms merge sort.
+// We do a random shuffle before sorting to avoid complexity attack. Quick sort is
+// unstable.
 func QuickSort(a Sortable) {
     goalgo.Shuffle(a)
     quickSort(a, 0, a.Size() - 1)
@@ -62,6 +66,8 @@ func djikstraQuickSort(a Sortable, lo, hi int) {
     djikstraQuickSort(a, gt + 1, hi)
 }
 
+// Djikstra's partitioning strategy is preferrable when we know that the collection
+// contains many duplicates.
 func DjikstraQuickSort(a Sortable) {
     goalgo.Shuffle(a)
     djikstraQuickSort(a, 0, a.Size() - 1)

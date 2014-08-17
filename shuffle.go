@@ -11,11 +11,11 @@ import (
 // this interface. Note that if you collection is sort.Sortable, it is already
 // Shufflable.
 type Shufflable interface {
-    Size() int
-    Exch(i, j int)
+    Size()			// number of elements in the collection
+    Exch(i, j int)  // swap two elements at the given indices
 }
 
-// Randomly shuffle the given collection with Knuth Shuffle. Linear complexity.
+// O(N). Randomly shuffle the given collection with Knuth Shuffle.
 func Shuffle(a Shufflable) {
     for i := 0; i < a.Size(); i++ {
         j := i + rand.Intn(a.Size() - i)

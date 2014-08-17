@@ -8,6 +8,9 @@ func insertionSort(a Sortable, step int) {
     }
 }
 
+// Insertion sort uses sqr(N)/4 compares and exchanges on average. The good news
+// is that it is stable and fast in partially sorted collections, which is why
+// insertion sort is still idely used in practice.
 func InsertionSort(a Sortable) {
     insertionSort(a, 1)
 }

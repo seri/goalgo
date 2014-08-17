@@ -1,17 +1,17 @@
 // Package st provides the symbol table API. Symbol tables are more commonly known
 // as dictionaries or maps. We provide two trees that implement this API.
 // 
-// ## Examples
+// Examples:
 // 
-// * [st_client.go](https://github.com/seri/goalgo/blob/master/examples/st_client.go)
-// test and benchmarks the two trees.
+//		* https://github.com/seri/goalgo/blob/master/examples/st_client.go
+//		test and benchmarks the two trees.
 // 
-// ## References
+// References:
 // 
-// 1. http://algs4.cs.princeton.edu/32bst/
-// 2. http://algs4.cs.princeton.edu/33balanced/
-// 3. http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
-// 4. [Left-Leaning Red-Black Trees Considered Harmful](http://www.read.seas.harvard.edu/~kohler/notes/llrb.html)
+//		1. http://algs4.cs.princeton.edu/32bst/
+//		2. http://algs4.cs.princeton.edu/33balanced/
+//		3. http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
+//		4. http://www.read.seas.harvard.edu/~kohler/notes/llrb.html
 package st
 
 // In order to use each ymbol tables, you must first adapt your key type to the

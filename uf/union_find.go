@@ -9,7 +9,7 @@
 // Examples:
 // 
 //		* https://github.com/seri/goalgo/blob/master/examples/uf_client.go
-//	    benchmarks the two union find solvers against each other.
+//		benchmarks the two union find solvers against each other.
 // 
 // References: 
 // 

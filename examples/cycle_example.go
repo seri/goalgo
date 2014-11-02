@@ -1,9 +1,12 @@
+// TODO: Enrich the test suite (since our cycle algorithm is homemade)
+
 package main
 
 import (
     "fmt"
+    "strings"
     "github.com/seri/goalgo/graph"
-    . "./util"
+    "./util/graphU"
 )
 
 func main() {
@@ -16,10 +19,16 @@ func main() {
     }
     for _, filename := range filenames {
         fmt.Print(filename + ": ")
-        if graph.HasCycle(ParseGraph(filename)) {
-            fmt.Println("Has cycle")
+        isDAG := !graph.HasCycle(graphU.ParseGraph(filename))
+        if isDAG {
+            fmt.Print("Has no cycle")
         } else {
-            fmt.Println("Has no cycle")
+            fmt.Print("Has cycles")
+        }
+        if isDAG == strings.Contains(filename, "DAG")  {
+            fmt.Println(" (Passed)")
+        } else {
+            fmt.Println(" (Failed)")
         }
     }
 }

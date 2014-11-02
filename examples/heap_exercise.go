@@ -4,7 +4,8 @@ import (
     "fmt"
     "strings"
     "github.com/seri/goalgo/pq"
-    . "./util"
+    "./util/testU"
+    "./util/numberU"
 )
 
 // Adapt an int slice to satisfy pq.Interface so it can behave as a heap container
@@ -44,7 +45,7 @@ func (me IntSlice) String() string {
 
 func HeapInsert(s string) string {
     a := strings.Split(s, ";")
-    b, c := IntSlice(ToIntSlice(a[0])), ToIntSlice(a[1])
+    b, c := IntSlice(numberU.ToIntSlice(a[0])), numberU.ToIntSlice(a[1])
     for _, x := range c {
         pq.Push(&b, x)
     }
@@ -52,7 +53,7 @@ func HeapInsert(s string) string {
 }
 
 func HeapRemove3Times(s string) string {
-    a := IntSlice(ToIntSlice(s))
+    a := IntSlice(numberU.ToIntSlice(s))
     for i := 0; i < 3; i++ {
         pq.Pop(&a)
     }
@@ -60,14 +61,14 @@ func HeapRemove3Times(s string) string {
 }
 
 func main() {
-    Test(HeapInsert,
+    testU.ExpectOutput(HeapInsert,
          "84 78 72 30 40 51 46 21 16 15;98 49 76",
          "98 84 76 30 78 72 46 21 16 15 40 49 51")
-    Test(HeapRemove3Times,
+    testU.ExpectOutput(HeapRemove3Times,
          "86 71 78 21 67 57 49 20 10 54",
          "67 21 57 20 10 54 49")
-    Trace(HeapInsert,
+    testU.GetOutput(HeapInsert,
           "95 92 36 64 73 31 14 27 48 46;90 24 84")
-    Trace(HeapRemove3Times,
+    testU.GetOutput(HeapRemove3Times,
           "88 87 57 62 75 40 30 26 52 33")
 }

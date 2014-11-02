@@ -4,7 +4,7 @@ import (
     "fmt"
     "strings"
     "github.com/seri/goalgo/graph"
-    . "./util"
+    "./util/ioU"
 )
 
 const (
@@ -14,7 +14,7 @@ const (
 func CollectJobs(filename string) map[string]int {
     table := make(map[string]int)
     n := 0
-    EachLine(filename, func (lineNo int, line string) {
+    ioU.EachLine(filename, func (lineNo int, line string) {
         jobs := strings.Split(line, "/")
         for _, job := range jobs {
             if _, ok := table[job]; !ok {
@@ -34,7 +34,7 @@ func ParseGraph(filename string) (g *graph.G, jobs []string) {
         jobs[i] = job
     }
     g = graph.New(V)
-    EachLine(filename, func (lineNo int, line string) {
+    ioU.EachLine(filename, func (lineNo int, line string) {
         parts := strings.Split(line, "/")
         u := table[parts[0]]
         for i := 1; i < len(parts); i++ {
@@ -46,6 +46,7 @@ func ParseGraph(filename string) (g *graph.G, jobs []string) {
 }
 
 func SanityCheck(g *graph.G, topoOrder []int) {
+    fmt.Print("Sanity checking the result ... ")
     indices := make([]int, g.V())
     for i, u := range topoOrder {
         indices[u] = i
@@ -57,7 +58,7 @@ func SanityCheck(g *graph.G, topoOrder []int) {
             }
         }
     }
-    fmt.Println("The order seems to be valid")
+    fmt.Println("(Passed)")
 }
 
 func main() {

@@ -6,14 +6,17 @@ import (
     "io"
     "time"
     "github.com/seri/goalgo/uf"
-    . "./util"
+    "./util/numberU"
+    "./util/reflectU"
+    "./util/logU"
+    "./util/timer"
 )
 
 const (
     LogFile = "uf_client.log"
 )
 
-// Experiment
+// The experiment data type containing pairs of vertices to connect
 
 type Experiment struct {
     size int
@@ -39,14 +42,17 @@ func (me Experiment) WriteTo(w io.Writer) {
     }
 }
 
-// Test
+// Check whether all union find implementations return the same result for
+// a particular experiment
 
 func Check(ufs []uf.UnionFind, e *Experiment) {
     fmt.Print("Cheking if all implementations match ... ")
     for i := 1; i < len(ufs); i++ {
         if ufs[i].Count() != ufs[0].Count() {
-            Fail(LogFile, fmt.Sprintf("%s.Count() returns %d while %s.Count() returns %d",
-                 Type(ufs[0]), ufs[0].Count(), Type(ufs[i]), ufs[i].Count()), e)
+            logU.Fail(LogFile, 
+                fmt.Sprintf("%s.Count() returns %d while %s.Count() returns %d",
+                reflectU.TypeName(ufs[0]), ufs[0].Count(), 
+                reflectU.TypeName(ufs[i]), ufs[i].Count()), e)
         }
     }
     n := e.size
@@ -55,19 +61,21 @@ func Check(ufs []uf.UnionFind, e *Experiment) {
         x := ufs[0].Connected(p, q)
         for i := 1; i < len(ufs); i++ {
             if ufs[i].Connected(p, q) != x {
-                Fail(LogFile, fmt.Sprintf("%s.Connected(%d, %d) returns %t while " +
-                     "%s.Connected(%d, %d) returns %t", Type(ufs[0]), p, q, x,
-                     Type(ufs[i]), p, q, ufs[i].Connected(p, q)), e)
+                logU.Fail(LogFile, 
+                    fmt.Sprintf("%s.Connected(%d, %d) returns %t while " +
+                    "%s.Connected(%d, %d) returns %t", reflectU.TypeName(ufs[0]), 
+                    p, q, x, reflectU.TypeName(ufs[i]), 
+                    p, q, ufs[i].Connected(p, q)), e)
             }
         }
     }
     fmt.Println("Passed")
 }
 
-// Benchmark
+// Run union find implementations against experiments
 
 func RunOne(uf uf.UnionFind, e *Experiment) {
-    TimeIt("Running " + Type(uf), func() {
+    timer.TimeIt("Running " + reflectU.TypeName(uf), func() {
         uf.Reset(e.size)
         for i := range e.ps {
             uf.Union(e.ps[i], e.qs[i])
@@ -77,7 +85,7 @@ func RunOne(uf uf.UnionFind, e *Experiment) {
 
 func RunAll(ufs []uf.UnionFind, size int) {
     e := NewExperiment(size)
-    fmt.Printf("With input size %s and %d calls to Union()\n", PPInt(e.size), len(e.ps))
+    fmt.Printf("With input size %s and %d calls to Union()\n", numberU.PPInt(e.size), len(e.ps))
     for _, uf := range ufs {
         RunOne(uf, e)
     }
@@ -89,9 +97,9 @@ func main() {
     rand.Seed(time.Now().UnixNano())
     ufs := []uf.UnionFind { uf.NewQuickFind(10), uf.NewQuickUnion(10) }
     sizes := []int {
-        TenPow(1),
-        TenPow(4),
-        TenPow(5),
+        numberU.TenPow(1),
+        numberU.TenPow(4),
+        numberU.TenPow(5),
     }
     for _, size := range sizes {
         RunAll(ufs, size)

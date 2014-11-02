@@ -7,14 +7,17 @@ import (
     "time"
     "github.com/seri/goalgo/sort"
     "github.com/seri/goalgo/pq"
-    . "./util"
+    "./util/numberU"
+    "./util/logU"
+    "./util/reflectU"
+    "./util/timer"
 )
 
 const (
     LogFile = "sort_client.log"
 )
 
-// Experiment
+// The experiment data type encapsulating a sorting test case
 
 type Experiment struct {
     size int
@@ -47,7 +50,7 @@ func (me Experiment) Reset() {
     copy(me.output, me.input)
 }
 
-// Worker
+// The worker data type which wraps a sorter with some added info
 
 type Worker struct {
     sorter sort.Sorter
@@ -65,9 +68,9 @@ func NewCheater(cheater sort.Cheater, limit int) *Worker {
 
 func (me Worker) Name() string {
     if me.sorter != nil {
-        return Type(me.sorter)
+        return reflectU.TypeName(me.sorter)
     }
-    return Type(me.cheater)
+    return reflectU.TypeName(me.cheater)
 }
 
 func (me Worker) Sort(a []int) {
@@ -78,19 +81,17 @@ func (me Worker) Sort(a []int) {
     }
 }
 
-// Test
+// Run workers against experiments
 
 func Check(w *Worker, e *Experiment) {
     for i := range e.input {
         if e.output[i] != e.result[i] {
             fmt.Println()
-            Fail(LogFile, w.Name() + " is incorrect", e)
+            logU.Fail(LogFile, w.Name() + " is incorrect", e)
         }
     }
     fmt.Print(" (Passed)")
 }
-
-// Benchmark
 
 func RunWorker(w *Worker, e *Experiment) {
     fmt.Printf("Running %-20s .. ", w.Name())
@@ -101,7 +102,7 @@ func RunWorker(w *Worker, e *Experiment) {
     }
 
     e.Reset()
-    t := NewTimer()
+    t := timer.New()
     w.Sort(e.output)
     fmt.Printf("%-15s", t.Elapsed())
 
@@ -115,7 +116,8 @@ func RunWorker(w *Worker, e *Experiment) {
 }
 
 func RunWorkers(ws []*Worker, e *Experiment) {
-    fmt.Printf("With input size %s and maximum value %s\n", PPInt(e.size), PPInt(e.max))
+    fmt.Printf("With input size %s and maximum value %s\n", 
+               numberU.PPInt(e.size), numberU.PPInt(e.max))
     for _, w := range ws {
         RunWorker(w, e)
     }
@@ -141,21 +143,21 @@ sorters have to go through an interface and suffers a significant overhead.
     `)
     rand.Seed(time.Now().UnixNano())
     ws := []*Worker {
-        NewSorter(sort.GoSort, TenPow(7)),
-        NewSorter(sort.SelectionSort, TenPow(4)),
-        NewSorter(sort.InsertionSort, TenPow(4)),
-        NewSorter(sort.ShellSort, TenPow(6)),
-        NewCheater(sort.MergeSort, TenPow(7)),
-        NewSorter(sort.QuickSort, TenPow(7)),
-        NewSorter(sort.DjikstraQuickSort, TenPow(7)),
-        NewSorter(pq.HeapSort, TenPow(7)),
+        NewSorter(sort.GoSort,              numberU.TenPow(7)),
+        NewSorter(sort.SelectionSort,       numberU.TenPow(4)),
+        NewSorter(sort.InsertionSort,       numberU.TenPow(4)),
+        NewSorter(sort.ShellSort,           numberU.TenPow(6)),
+        NewCheater(sort.MergeSort,          numberU.TenPow(7)),
+        NewSorter(sort.QuickSort,           numberU.TenPow(7)),
+        NewSorter(sort.DjikstraQuickSort,   numberU.TenPow(7)),
+        NewSorter(pq.HeapSort,              numberU.TenPow(7)),
     }
     es := []*Experiment {
-        NewExperiment(TenPow(1), TenPow(1)),
-        NewExperiment(TenPow(4), TenPow(4)),
-        NewExperiment(TenPow(6), TenPow(6)),
-        NewExperiment(TenPow(7), TenPow(7)),
-        NewExperiment(TenPow(7), TenPow(2)),
+        NewExperiment(numberU.TenPow(1), numberU.TenPow(1)),
+        NewExperiment(numberU.TenPow(4), numberU.TenPow(4)),
+        NewExperiment(numberU.TenPow(6), numberU.TenPow(6)),
+        NewExperiment(numberU.TenPow(7), numberU.TenPow(7)),
+        NewExperiment(numberU.TenPow(7), numberU.TenPow(2)),
     }
     RunExperiments(ws, es)
 }

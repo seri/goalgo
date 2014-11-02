@@ -6,14 +6,18 @@ import (
     "math/rand"
     "time"
     "github.com/seri/goalgo/st"
-    . "./util"
+    "./util/numberU"
+    "./util/reflectU"
+    "./util/logU"
+    "./util/timer"
 )
 
 const (
     LogFile = "st_client.log"
 )
 
-// Experiment
+// The experiment data type containg key-value pairs to add to a symbol table,
+// the list of keys to later retrieve, and the list of keys to later delete. 
 
 type Experiment struct {
     size int
@@ -84,11 +88,11 @@ func (me GoMap) Remove(k st.Comparable) {
     delete(me, int(k.(st.Int)))
 }
 
-// Benchmark 
+// Actually execute the experiments
 
 func RunPut(xs []st.ST, e *Experiment) {
     for _, x := range xs {
-        TimeIt("Inserting into " + Type(x), func () {
+        timer.TimeIt("Inserting into " + reflectU.TypeName(x), func () {
             for i := 0; i < e.size; i++ {
                 x.Put(st.Int(e.keys[i]), e.vals[i])
             }
@@ -98,7 +102,7 @@ func RunPut(xs []st.ST, e *Experiment) {
 
 func RunGet(xs []st.ST, e *Experiment) {
     for _, x := range xs {
-        TimeIt("Retrieving from " + Type(x), func() {
+        timer.TimeIt("Retrieving from " + reflectU.TypeName(x), func() {
             for _, k := range e.gets {
                 x.Get(st.Int(k))
             }
@@ -108,7 +112,7 @@ func RunGet(xs []st.ST, e *Experiment) {
 
 func RunRemove(xs []st.ST, e *Experiment) {
     for _, x := range xs {
-        TimeIt("Removing from " + Type(x), func() {
+        timer.TimeIt("Removing from " + reflectU.TypeName(x), func() {
             for _, k := range e.dels {
                 x.Remove(st.Int(k))
             }
@@ -119,19 +123,19 @@ func RunRemove(xs []st.ST, e *Experiment) {
 func RunChecksum(xs []st.ST, e *Experiment) {
     var correct int
     for i, x := range xs {
-        TimeIt("Doing checksum in " + Type(x), func() {
+        timer.TimeIt("Doing checksum in " + reflectU.TypeName(x), func() {
             sum := 0
             for _, k := range e.keys {
                 v := x.Get(st.Int(k))
                 if v != nil {
-                    sum = (sum + v.(int)) % Modulus
+                    sum = (sum + v.(int)) % numberU.Modulus
                 }
             }
             switch {
             case i == 0:
                 correct = sum
             case sum != correct:
-                Fail(LogFile, Type(x) + " is incorrect", e)
+                logU.Fail(LogFile, reflectU.TypeName(x) + " is incorrect", e)
             default:
                 fmt.Print("(Passed) ")
             }
@@ -151,11 +155,11 @@ We expect to see faster retrievals from LLRB compared to BST.
         st.NewLLRB(),
     }
     es := []*Experiment {
-        NewExperiment(TenPow(1)),
-        NewExperiment(TenPow(7)),
+        NewExperiment(numberU.TenPow(1)),
+        NewExperiment(numberU.TenPow(7)),
     }
     for _, e := range es {
-        s := PPInt(e.size)
+        s := numberU.PPInt(e.size)
         fmt.Printf("With %s insertions, %s removals, %s retrievals \n", s, s, s)
         RunPut(xs, e)
         RunGet(xs, e)

@@ -37,4 +37,4 @@ func HasCycle(graf *G) bool {
         }
     }
     return false
-t}
+}

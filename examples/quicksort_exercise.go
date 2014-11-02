@@ -2,7 +2,7 @@ package main
 
 import (
     "strings"
-    . "./util"
+    "./util/testU"
 )
 
 func StandardPartition(s string) string {
@@ -42,14 +42,14 @@ func DjkstraPartition(s string) string {
 }
 
 func main() {
-    Test(StandardPartition,
+    testU.ExpectOutput(StandardPartition,
         "49 97 84 93 25 33 72 40 54 96 19 30",
         "33 30 19 40 25 49 72 93 54 96 84 97")
-    Test(DjkstraPartition,
+    testU.ExpectOutput(DjkstraPartition,
          "53 53 93 55 87 65 91 29 27 53",
          "27 29 53 53 53 91 65 87 55 93")
-    Trace(StandardPartition,
+    testU.GetOutput(StandardPartition,
           "A A B B B B A B A B A B")
-    Trace(DjkstraPartition,
+    testU.GetOutput(DjkstraPartition,
           "43 55 43 43 44 25 22 93 50 66")
 }

@@ -94,3 +94,14 @@ func (me G) checkBounds(u int) {
         panic(fmt.Sprintf("vertex %d out of range [0, %d)", u, me.nV))
     }
 }
+
+// Obtain a copy of the graph with all edges reversed in direction
+func (me G) Reverse() *G {
+    reversed := New(me.V())
+    for u := 0; u < me.V(); u++ {
+        for _, edge := range me.Edges(u) {
+            reversed.Add(edge.To(), edge.From(), edge.Weight())
+        }
+    }
+    return reversed
+}

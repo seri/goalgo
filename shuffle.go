@@ -1,4 +1,4 @@
-// Package goalgo provides implementations of some fundamental algorithms, most
+// Package goalgo provides implementations of some fundamental algorithms, most of
 // which come from the Algorithms course of the university of Princeton. There are
 // runnable examples for most of these algorithms.
 package goalgo
@@ -11,7 +11,7 @@ import (
 // this interface. Note that if you collection is sort.Sortable, it is already
 // Shufflable.
 type Shufflable interface {
-    Size()			// number of elements in the collection
+    Size() int      // number of elements in the collection
     Exch(i, j int)  // swap two elements at the given indices
 }
 

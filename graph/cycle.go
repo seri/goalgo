@@ -1,14 +1,13 @@
 package graph
 
 type cycleState struct {
-    g *G
+    graf *G
     seen, done []bool
 }
 
 func cycleDFS(state *cycleState, u int) bool {
     state.seen[u] = true
-    for _, edge := range state.g.Adj(u) {
-        v := edge.To()
+    for _, v := range state.graf.Vertices(u) {
         if !state.seen[v] {
             if cycleDFS(state, v) {
                 return true
@@ -23,14 +22,19 @@ func cycleDFS(state *cycleState, u int) bool {
     return false
 }
 
-func HasCycle(g *G) bool {
-    seen := make([]bool, g.V())
-    done := make([]bool, g.V())
-    state := &cycleState { g, seen, done }
-    for u := 0; u < g.V(); u++ {
-        if cycleDFS(state, u) {
+// Check whether the given graph has a cycle. If the function returns false, we
+// call the given graph a DAG (directed acyclic graph). As this implementation
+// runs one pass of depth first search, the complexity is O(V + E).
+func HasCycle(graf *G) bool {
+    state := &cycleState {
+        graf,
+        make([]bool, graf.V()),
+        make([]bool, graf.V()),
+    }
+    for u := 0; u < graf.V(); u++ {
+        if !state.seen[u] && cycleDFS(state, u) {
             return true
         }
     }
     return false
-}
+t}

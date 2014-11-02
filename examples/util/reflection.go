@@ -11,7 +11,7 @@ func BaseName(s string) string {
     if i == -1 {
         return s
     }
-	return s[(i + 1):]
+    return s[(i + 1):]
 }
 
 func Type(x interface{}) string {
@@ -24,5 +24,5 @@ func Type(x interface{}) string {
     case reflect.Func:
         return BaseName(runtime.FuncForPC(reflect.ValueOf(x).Pointer()).Name())
     }
-	return t.Name()
+    return t.Name()
 }

@@ -130,14 +130,14 @@ func RunExperiments(ws []*Worker, es []*Experiment) {
 
 func main() {
     fmt.Println(`
-    Test and benchmark sorting algorithms.
-    
-    - When the maximum value is less than the input size, there should be 
-    duplicates. We expect to see Djikstra's three-way quicksort perform better 
-    than standard quicksort in such cases.
-    
-    - Mergesort cheats the benchmark by operating directly on []int. Other
-    sorters have to go through an interface and suffers a significant overhead.
+Test and benchmark sorting algorithms.
+
+- When the maximum value is less than the input size, there should be 
+duplicates. We expect to see Djikstra's three-way quicksort perform better 
+than standard quicksort in such cases.
+
+- Mergesort cheats the benchmark by operating directly on []int. Other
+sorters have to go through an interface and suffers a significant overhead.
     `)
     rand.Seed(time.Now().UnixNano())
     ws := []*Worker {

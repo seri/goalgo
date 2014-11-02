@@ -8,12 +8,12 @@
 // 
 // Examples:
 // 
-//		* https://github.com/seri/goalgo/blob/master/examples/uf_client.go
-//		benchmarks the two union find solvers against each other.
+//      * https://github.com/seri/goalgo/blob/master/examples/uf_client.go
+//      benchmarks the two union find solvers against each other.
 // 
 // References: 
 // 
-//		1. http://algs4.cs.princeton.edu/15uf/
+//      1. http://algs4.cs.princeton.edu/15uf/
 package uf
 
 // The union find API that implementations must adapt.

@@ -7,22 +7,22 @@
 // 
 // Examples:
 // 
-//		* https://github.com/seri/goalgo/blob/master/examples/sort_client.go
-//		tests the correctness of these algorithms and benchmarks them.
+//      * https://github.com/seri/goalgo/blob/master/examples/sort_client.go
+//      tests the correctness of these algorithms and benchmarks them.
 // 
 // References:
 // 
-//		1. http://algs4.cs.princeton.edu/21elementary/
-//		2. http://algs4.cs.princeton.edu/22mergesort/
-//		3. http://algs4.cs.princeton.edu/23quicksort/
+//      1. http://algs4.cs.princeton.edu/21elementary/
+//      2. http://algs4.cs.princeton.edu/22mergesort/
+//      3. http://algs4.cs.princeton.edu/23quicksort/
 package sort
 
 // To use the algorithms in this package, you must first adapt your collection to
 // this interface.
 type Sortable interface {
-    Size() int			 // number of elements in the collection
+    Size() int           // number of elements in the collection
     Less(i, j int) bool  // is element at index i less than element at index j
-    Exch(i, j int)		 // swap the two elements at the given indices
+    Exch(i, j int)       // swap the two elements at the given indices
 }
 
 // A Sorter is a function that can sort a Sortable.
@@ -69,7 +69,7 @@ func (me rSortable) Less(i, j int) bool {
 
 // Tweak a Sortable collection so that when a Sorter is used, the order will be
 // reversed. Which means you can sort a collection in descending order like this:
-//		sort.QuickSort(sort.Reverse(collection))
+//      sort.QuickSort(sort.Reverse(collection))
 func Reverse(x Sortable) Sortable {
     return &rSortable { x }
 }

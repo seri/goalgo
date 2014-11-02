@@ -2,34 +2,17 @@ package main
 
 import (
     "fmt"
-    "os"
     "github.com/seri/goalgo/graph"
+    . "./util"
 )
-
-func ParseGraph(filename string) *graph.G {
-    f, err := os.Open(filename)
-    if err != nil {
-        panic(err)
-    }
-    defer f.Close()
-
-    var V, E, u, v int
-
-    fmt.Fscanf(f, "%d %d", &V, &E)
-    g := graph.New(V)
-
-    for i := 0; i < E; i++ {
-        fmt.Fscanf(f, "%d %d", &u, &v)
-        g.Add(u, v, 1)
-    }
-
-    return g
-}
 
 func main() {
     filenames := []string {
         "data/tinyDG.txt",
         "data/tinyDAG.txt",
+        "data/mediumDG.txt",
+        "data/tinyEWDAG.txt",
+        "data/tinyEWG.txt",
     }
     for _, filename := range filenames {
         fmt.Print(filename + ": ")

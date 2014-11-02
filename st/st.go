@@ -3,21 +3,21 @@
 // 
 // Examples:
 // 
-//		* https://github.com/seri/goalgo/blob/master/examples/st_client.go
-//		test and benchmarks the two trees.
+//      * https://github.com/seri/goalgo/blob/master/examples/st_client.go
+//      test and benchmarks the two trees.
 // 
 // References:
 // 
-//		1. http://algs4.cs.princeton.edu/32bst/
-//		2. http://algs4.cs.princeton.edu/33balanced/
-//		3. http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
-//		4. http://www.read.seas.harvard.edu/~kohler/notes/llrb.html
+//      1. http://algs4.cs.princeton.edu/32bst/
+//      2. http://algs4.cs.princeton.edu/33balanced/
+//      3. http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
+//      4. http://www.read.seas.harvard.edu/~kohler/notes/llrb.html
 package st
 
 // In order to use each ymbol tables, you must first adapt your key type to the
 // Comparable interface. 
 type Comparable interface {
-    Compare(x Comparable) int	// -1 for less, 0 for equal, 1 for greater
+    Compare(x Comparable) int   // -1 for less, 0 for equal, 1 for greater
 }
 
 // When you flatten a symbol table, you will get a slice of Key-value pairs.
@@ -30,8 +30,8 @@ type Item struct {
 // type of the value is just an empty interface, so you will have to manually
 // typecast it.
 type ST interface {
-    Empty() bool				     // is the symbol table empty
-    Contains(k Comparable) bool		 // does it contain the given key
+    Empty() bool                     // is the symbol table empty
+    Contains(k Comparable) bool      // does it contain the given key
     Get(k Comparable) interface{}    // get the value associated with given key
     Put(k Comparable, v interface{}) // insert a new key-value pair into the symbol table
     Flatten() []Item                 // retrieve all key-value pairs at once

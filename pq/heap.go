@@ -3,12 +3,12 @@
 // 
 // Examples:
 // 
-//		* https://github.com/seri/goalgo/blob/master/examples/heap_exercise.go
-//		shows how you may use this package in practice.
+//      * https://github.com/seri/goalgo/blob/master/examples/heap_exercise.go
+//      shows how you may use this package in practice.
 // 
 // References:
 // 
-//		1. http://algs4.cs.princeton.edu/24pq/
+//      1. http://algs4.cs.princeton.edu/24pq/
 package pq
 
 import (

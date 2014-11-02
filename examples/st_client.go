@@ -141,8 +141,8 @@ func RunChecksum(xs []st.ST, e *Experiment) {
 
 func main() {
     fmt.Println(`
-    Test and benchmark symbol-table data structures.
-    We expect to see faster retrievals from LLRB compared to BST.
+Test and benchmark symbol-table data structures.
+We expect to see faster retrievals from LLRB compared to BST.
     `)
     rand.Seed(time.Now().UnixNano())
     xs := []st.ST {

@@ -1,14 +1,26 @@
 // Package graph implements fundamental graph algorithms. There are many types
 // of graphs but we will only deal with edge-weighted directed graphs
-// represented by adjacent lists, which are arguably the most practical of all.
+// represented by adjacent lists.
+// 
+// If you do not want the edges to have weights, simply assign a unit weight of
+// one to every edge. If you want an undirected graph, simply add two edges in
+// both directions for every pair of vertices.
 //
 // Here are the algorithms included in the package:
 //
-//      1. Sort the vertices in topological order
-//      2. Test if the graph is acyclic
-//      3. Divide the graph into strongly connected components
-//      4. Construct the minimum spanning tree
-//      5. Find shortest paths between any two vertices
+//      1. Determine whether one vertice is reachable from another
+//      2. Sort the vertices in topological order
+//      3. Test if the graph is acyclic
+//      4. Divide the graph into strongly connected components
+//      5. Construct the minimum spanning tree
+//      6. Find shortest paths between any two vertices
+//
+// Examples
+//      
+//      * https://github.com/seri/goalgo/blob/master/examples/toposort_example.go
+//      * https://github.com/seri/goalgo/blob/master/examples/cycle_example.go
+//      * https://github.com/seri/goalgo/blob/master/examples/scc_example.go
+//      * https://github.com/seri/goalgo/blob/master/examples/mst_example.go
 //
 // References:
 //
@@ -17,7 +29,8 @@
 //      3. http://algs4.cs.princeton.edu/43mst/
 //      4. http://algs4.cs.princeton.edu/44sp/
 //      5. http://www.seas.gwu.edu/~simhaweb/alg/lectures/module7/module7.html
-//
+//      6. http://www.seas.gwu.edu/~simhaweb/alg/lectures/module8/module8.html
+//      7. http://people.qc.cuny.edu/faculty/christopher.hanusa/courses/634sp12/Documents/KruskalProof.pdf
 package graph
 
 import (
@@ -33,13 +46,25 @@ type Edge struct {
 func (me Edge) From() int {
     return me.from
 }
-
 func (me Edge) To() int {
     return me.to
 }
-
 func (me Edge) Weight() float32 {
     return me.weight
+}
+func (me Edge) String() string {
+    return fmt.Sprintf("%d->%d (%f)", me.from, me.to, me.weight)
+}
+
+type EdgeSlice []Edge
+func (me EdgeSlice) Size() int {
+    return len(me)
+}
+func (me EdgeSlice) Less(i, j int) bool {
+    return me[i].Weight() < me[j].Weight()
+}
+func (me EdgeSlice) Exch(i, j int) {
+    me[i], me[j] = me[j], me[i]
 }
 
 // For simplicity, G requires the number of vertices up-front; it can add edges
@@ -95,13 +120,32 @@ func (me G) checkBounds(u int) {
     }
 }
 
-// Obtain a copy of the graph with all edges reversed in direction
-func (me G) Reverse() *G {
-    reversed := New(me.V())
-    for u := 0; u < me.V(); u++ {
-        for _, edge := range me.Edges(u) {
+// Obtain a copy of the graph with all edges reversed in direction.
+func Reverse(g *G) *G {
+    reversed := New(g.V())
+    for u := 0; u < g.V(); u++ {
+        for _, edge := range g.Edges(u) {
             reversed.Add(edge.To(), edge.From(), edge.Weight())
         }
     }
     return reversed
+}
+
+// Obtain a list of every edge in an undirected graph. Requires V * V space.
+func AllEdges(g *G) []Edge {
+    seen := make([][]bool, g.V())
+    edges := make([]Edge, g.E() / 2)
+    for u := 0; u < g.V(); u++ {
+        seen[u] = make([]bool, g.V())
+    }
+    for u := 0; u < g.V(); u++ {
+        for _, edge := range g.Edges(u) {
+            v := edge.To()
+            if v >= u && !seen[u][v] {
+                edges = append(edges, edge)
+                seen[u][v] = true
+            }
+        }
+    }
+    return edges
 }

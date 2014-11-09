@@ -42,10 +42,10 @@ func (me Experiment) WriteTo(w io.Writer) {
     }
 }
 
-// Check whether all union find implementations return the same result for
+// check whether all union find implementations return the same result for
 // a particular experiment
 
-func Check(ufs []uf.UnionFind, e *Experiment) {
+func check(ufs []uf.UnionFind, e *Experiment) {
     fmt.Print("Cheking if all implementations match ... ")
     for i := 1; i < len(ufs); i++ {
         if ufs[i].Count() != ufs[0].Count() {
@@ -74,7 +74,7 @@ func Check(ufs []uf.UnionFind, e *Experiment) {
 
 // Run union find implementations against experiments
 
-func RunOne(uf uf.UnionFind, e *Experiment) {
+func runOne(uf uf.UnionFind, e *Experiment) {
     timer.TimeIt("Running " + reflectU.TypeName(uf), func() {
         uf.Reset(e.size)
         for i := range e.ps {
@@ -83,13 +83,13 @@ func RunOne(uf uf.UnionFind, e *Experiment) {
     })
 }
 
-func RunAll(ufs []uf.UnionFind, size int) {
+func runAll(ufs []uf.UnionFind, size int) {
     e := NewExperiment(size)
     fmt.Printf("With input size %s and %d calls to Union()\n", numberU.PPInt(e.size), len(e.ps))
     for _, uf := range ufs {
-        RunOne(uf, e)
+        runOne(uf, e)
     }
-    Check(ufs, e)
+    check(ufs, e)
     fmt.Println()
 }
 
@@ -102,6 +102,6 @@ func main() {
         numberU.TenPow(5),
     }
     for _, size := range sizes {
-        RunAll(ufs, size)
+        runAll(ufs, size)
     }
 }

@@ -11,7 +11,7 @@ const (
     DataFile = "data/jobs.txt"
 )
 
-func CollectJobs(filename string) map[string]int {
+func collectJobs(filename string) map[string]int {
     table := make(map[string]int)
     n := 0
     ioU.EachLine(filename, func (lineNo int, line string) {
@@ -26,8 +26,8 @@ func CollectJobs(filename string) map[string]int {
     return table
 }
 
-func ParseGraph(filename string) (g *graph.G, jobs []string) {
-    table := CollectJobs(filename)
+func parseGraph(filename string) (g *graph.G, jobs []string) {
+    table := collectJobs(filename)
     V := len(table)
     jobs = make([]string, V)
     for job, i := range table {
@@ -45,8 +45,8 @@ func ParseGraph(filename string) (g *graph.G, jobs []string) {
     return
 }
 
-func SanityCheck(g *graph.G, topoOrder []int) {
-    fmt.Print("Sanity checking the result ... ")
+func check(g *graph.G, topoOrder []int) {
+    fmt.Print("Checking the result ... ")
     indices := make([]int, g.V())
     for i, u := range topoOrder {
         indices[u] = i
@@ -54,20 +54,23 @@ func SanityCheck(g *graph.G, topoOrder []int) {
     for i, u := range topoOrder {
         for _, v := range g.Vertices(u) {
             if indices[v] < i {
-                panic("Invalid topological order")
+                fmt.Println("Failed")
+                fmt.Printf("    There is an edge %d->%d\n", u, v)
+                fmt.Printf("    But vertice %d appears before %d\n", u, v)
+                panic("Bye")
             }
         }
     }
-    fmt.Println("(Passed)")
+    fmt.Println("Passed")
 }
 
 func main() {
     fmt.Println(`A simple example of using graph.TopoSort() to topologically sort
 the directed graph described in data/jobs.txt.`)
-    g, jobs := ParseGraph(DataFile)
+    g, jobs := parseGraph(DataFile)
     topoOrder := graph.TopoSort(g)
     for _, u := range topoOrder {
         fmt.Printf("    %s\n", jobs[u])
     }
-    SanityCheck(g, topoOrder)
+    check(g, topoOrder)
 }

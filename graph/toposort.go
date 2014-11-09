@@ -2,8 +2,8 @@ package graph
 
 type topoState struct {
     graf *G
-    result []int
     seen []bool
+    result []int
     index int
 }
 
@@ -21,13 +21,12 @@ func topoDFS(state *topoState, u int) {
 // This function assumes that the given graph is acyclic. If you are unsure,
 // consider calling HasCycle() first to check. Now, all we are doing to find
 // the topological order is to start a depth first search and save the order in
-// which vertices are completed. So this will run in O(V + E). See 
-// https://github.com/seri/goalgo/blob/master/examples/toposort_example.go.
+// which vertices are completed. So this will run in O(V + E).
 func TopoSort(graf *G) []int {
     state := &topoState {
 		graf,
-		make([]int, graf.V()),
 		make([]bool, graf.V()),
+        make([]int, graf.V()),
 		graf.V() - 1,
 	}
     for u := 0; u < graf.V(); u++ {

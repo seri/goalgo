@@ -90,7 +90,7 @@ func (me GoMap) Remove(k st.Comparable) {
 
 // Actually execute the experiments
 
-func RunPut(xs []st.ST, e *Experiment) {
+func runPut(xs []st.ST, e *Experiment) {
     for _, x := range xs {
         timer.TimeIt("Inserting into " + reflectU.TypeName(x), func () {
             for i := 0; i < e.size; i++ {
@@ -100,7 +100,7 @@ func RunPut(xs []st.ST, e *Experiment) {
     }
 }
 
-func RunGet(xs []st.ST, e *Experiment) {
+func runGet(xs []st.ST, e *Experiment) {
     for _, x := range xs {
         timer.TimeIt("Retrieving from " + reflectU.TypeName(x), func() {
             for _, k := range e.gets {
@@ -110,7 +110,7 @@ func RunGet(xs []st.ST, e *Experiment) {
     }
 }
 
-func RunRemove(xs []st.ST, e *Experiment) {
+func runRemove(xs []st.ST, e *Experiment) {
     for _, x := range xs {
         timer.TimeIt("Removing from " + reflectU.TypeName(x), func() {
             for _, k := range e.dels {
@@ -120,7 +120,7 @@ func RunRemove(xs []st.ST, e *Experiment) {
     }
 }
 
-func RunChecksum(xs []st.ST, e *Experiment) {
+func runChecksum(xs []st.ST, e *Experiment) {
     var correct int
     for i, x := range xs {
         timer.TimeIt("Doing checksum in " + reflectU.TypeName(x), func() {
@@ -161,10 +161,10 @@ We expect to see faster retrievals from LLRB compared to BST.
     for _, e := range es {
         s := numberU.PPInt(e.size)
         fmt.Printf("With %s insertions, %s removals, %s retrievals \n", s, s, s)
-        RunPut(xs, e)
-        RunGet(xs, e)
-        RunRemove(xs, e)
-        RunChecksum(xs, e)
+        runPut(xs, e)
+        runGet(xs, e)
+        runRemove(xs, e)
+        runChecksum(xs, e)
         fmt.Println()
     }
 }

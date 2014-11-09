@@ -6,7 +6,7 @@ import (
     "os"
 )
 
-func ParseGraph(filename string) *graph.G {
+func parseGraph(filename string, isDirected bool) *graph.G {
     f, err := os.Open(filename)
     if err != nil {
         panic(err)
@@ -24,8 +24,18 @@ func ParseGraph(filename string) *graph.G {
             weight float32
         )
         fmt.Fscanln(f, &u, &v, &weight)
-        g.Add(u, v, 1)
+        g.Add(u, v, weight)
+        if !isDirected {
+            g.Add(v, u, weight)
+        }
     }
     return g
 }
 
+func ParseGraph(filename string) *graph.G {
+    return parseGraph(filename, true)
+}
+
+func ParseUndirectedGraph(filename string) *graph.G {
+    return parseGraph(filename, false)
+}

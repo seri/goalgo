@@ -8,7 +8,7 @@ import (
     "./util/numberU"
 )
 
-func ToItemSlice(in string) []st.Item {
+func toItemSlice(in string) []st.Item {
     a := numberU.ToIntSlice(in)
     b := make([]st.Item, len(a))
     for i := range a {
@@ -17,7 +17,7 @@ func ToItemSlice(in string) []st.Item {
     return b
 }
 
-func Stringify(t *st.BST) string {
+func stringify(t *st.BST) string {
     a := t.Flatten()
     b := make([]string, len(a))
     for i := range a {
@@ -26,7 +26,7 @@ func Stringify(t *st.BST) string {
     return strings.Join(b, " ")
 }
 
-func ConstructBST(in string) *st.BST {
+func constructBST(in string) *st.BST {
     t := st.NewBST()
     a := numberU.ToIntSlice(in)
     for _, x := range a {
@@ -35,33 +35,33 @@ func ConstructBST(in string) *st.BST {
     return t
 }
 
-func BSTInsertion(in string) string {
-    return Stringify(ConstructBST(in))
+func bstInsert(in string) string {
+    return stringify(constructBST(in))
 }
 
-func HibbardDeletion(in string) string {
+func hibbardDelete(in string) string {
     a := strings.Split(in, ";")
-    t := ConstructBST(a[0])
+    t := constructBST(a[0])
     for _, x := range numberU.ToIntSlice(a[1]) {
         t.Remove(st.Int(x))
     }
-    return Stringify(t)
+    return stringify(t)
 }
 
 func main() {
-    testU.ExpectOutput(BSTInsertion,
+    testU.ExpectOutput(bstInsert,
          "99 31 13 56 40 95 10 97 72 80",
          "99 31 13 56 10 40 95 72 97 80")
-    testU.ExpectOutput(HibbardDeletion,
+    testU.ExpectOutput(hibbardDelete,
          "97 15 53 45 79 23 55 24 73 29 58 33; 33 45 53",
          "97 15 55 23 79 24 73 29 58")
-    testU.ExpectOutput(HibbardDeletion,
+    testU.ExpectOutput(hibbardDelete,
          "81 16 93 52 91 97 51 74 84 49 71 66; 84 16 52",
          "81 66 93 51 74 91 97 49 71")
-    testU.ExpectOutput(BSTInsertion,
+    testU.ExpectOutput(bstInsert,
          "76 33 89 67 41 31 10 46 58 24",
          "76 33 89 31 67 10 41 24 46 58")
-    testU.ExpectOutput(HibbardDeletion,
+    testU.ExpectOutput(hibbardDelete,
          "22 21 63 30 76 24 53 99 32 81 50 42; 42 53 63",
          "22 21 76 30 99 24 32 81 50")
 }

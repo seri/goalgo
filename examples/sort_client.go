@@ -83,7 +83,7 @@ func (me Worker) Sort(a []int) {
 
 // Run workers against experiments
 
-func Check(w *Worker, e *Experiment) {
+func check(w *Worker, e *Experiment) {
     for i := range e.input {
         if e.output[i] != e.result[i] {
             fmt.Println()
@@ -93,7 +93,7 @@ func Check(w *Worker, e *Experiment) {
     fmt.Print(" (Passed)")
 }
 
-func RunWorker(w *Worker, e *Experiment) {
+func runWorker(w *Worker, e *Experiment) {
     fmt.Printf("Running %-20s .. ", w.Name())
 
     if e.size > w.limit {
@@ -109,24 +109,24 @@ func RunWorker(w *Worker, e *Experiment) {
     if w.Name() == "GoSort" {
         copy(e.result, e.output)
     } else {
-        Check(w, e)
+        check(w, e)
     }
 
     fmt.Println()
 }
 
-func RunWorkers(ws []*Worker, e *Experiment) {
+func runWorkers(ws []*Worker, e *Experiment) {
     fmt.Printf("With input size %s and maximum value %s\n", 
                numberU.PPInt(e.size), numberU.PPInt(e.max))
     for _, w := range ws {
-        RunWorker(w, e)
+        runWorker(w, e)
     }
     fmt.Println()
 }
 
-func RunExperiments(ws []*Worker, es []*Experiment) {
+func runExperiments(ws []*Worker, es []*Experiment) {
     for _, e := range es {
-        RunWorkers(ws, e)
+        runWorkers(ws, e)
     }
 }
 
@@ -159,5 +159,5 @@ sorters have to go through an interface and suffers a significant overhead.
         NewExperiment(numberU.TenPow(7), numberU.TenPow(7)),
         NewExperiment(numberU.TenPow(7), numberU.TenPow(2)),
     }
-    RunExperiments(ws, es)
+    runExperiments(ws, es)
 }

@@ -131,21 +131,17 @@ func Reverse(g *G) *G {
     return reversed
 }
 
-// Obtain a list of every edge in an undirected graph. Requires V * V space.
+// Obtain a list of every edge in an undirected graph.
 func AllEdges(g *G) []Edge {
-    seen := make([][]bool, g.V())
     edges := make([]Edge, g.E() / 2)
-    for u := 0; u < g.V(); u++ {
-        seen[u] = make([]bool, g.V())
-    }
     for u := 0; u < g.V(); u++ {
         for _, edge := range g.Edges(u) {
             v := edge.To()
-            if v >= u && !seen[u][v] {
+            if v >= u {
                 edges = append(edges, edge)
-                seen[u][v] = true
             }
         }
     }
     return edges
 }
+

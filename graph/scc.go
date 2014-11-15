@@ -60,7 +60,7 @@ func StrongComponents(graf *G) [][]int {
             sccAddComponent(state)
             sccAddVertice(state, u)
             sccDFS(state, u)
-        }      
+        }
     }
     for _, component := range state.result {
         sort.Sort(sort.IntSlice(component))

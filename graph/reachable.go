@@ -12,7 +12,7 @@ func reachableDFS(state *reachableState, root, u int) {
             state.seen[v] = true
             state.result[root][v] = true
             if root != v {
-                reachableDFS(state, root, v)   
+                reachableDFS(state, root, v)
             }
         }
     }

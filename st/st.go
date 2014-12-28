@@ -3,8 +3,7 @@
 // 
 // Examples:
 // 
-//      * https://github.com/seri/goalgo/blob/master/examples/st_client.go
-//      test and benchmarks the two trees.
+//      * examples/st_client.go test and benchmarks the two trees.
 // 
 // References:
 // 

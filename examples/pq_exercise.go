@@ -8,35 +8,7 @@ import (
     "./util/numberU"
 )
 
-// Adapt an int slice to satisfy pq.Interface so it can behave as a heap container
-
-type IntSlice []int
-
-func (me IntSlice) Size() int {
-    return len(me)
-}
-
-func (me IntSlice) Less(i, j int) bool {
-    return me[i] < me[j]
-}
-
-func (me IntSlice) Exch(i, j int) {
-    me[i], me[j] = me[j], me[i]
-}
-
-func (me *IntSlice) Push(x interface{}) {
-    *me = append(*me, x.(int))
-}
-
-func (me *IntSlice) Pop() interface{} {
-    a := *me
-    n := len(a) - 1
-    x := a[n]
-    *me = a[:n]
-    return x
-}
-
-func (me IntSlice) String() string {
+func toString(me pq.IntSlice) string {
     s := fmt.Sprint([]int(me))
     return s[1:len(s) - 1]
 }
@@ -45,19 +17,19 @@ func (me IntSlice) String() string {
 
 func heapInsert(s string) string {
     a := strings.Split(s, ";")
-    b, c := IntSlice(numberU.ToIntSlice(a[0])), numberU.ToIntSlice(a[1])
+    b, c := pq.IntSlice(numberU.ToIntSlice(a[0])), numberU.ToIntSlice(a[1])
     for _, x := range c {
         pq.Push(&b, x)
     }
-    return b.String()
+    return toString(b)
 }
 
 func heapRemoveThrice(s string) string {
-    a := IntSlice(numberU.ToIntSlice(s))
+    a := pq.IntSlice(numberU.ToIntSlice(s))
     for i := 0; i < 3; i++ {
         pq.Pop(&a)
     }
-    return a.String()
+    return toString(a)
 }
 
 func main() {

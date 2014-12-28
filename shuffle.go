@@ -15,7 +15,8 @@ type Shufflable interface {
     Exch(i, j int)  // swap two elements at the given indices
 }
 
-// O(N). Randomly shuffle the given collection with Knuth Shuffle.
+// O(N). Randomly shuffle the given collection with Knuth Shuffle. See
+// sort/quick.go for an example use.
 func Shuffle(a Shufflable) {
     for i := 0; i < a.Size(); i++ {
         j := i + rand.Intn(a.Size() - i)

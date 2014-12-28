@@ -17,10 +17,11 @@
 //
 // Examples
 //      
-//      * https://github.com/seri/goalgo/blob/master/examples/toposort_example.go
-//      * https://github.com/seri/goalgo/blob/master/examples/cycle_example.go
-//      * https://github.com/seri/goalgo/blob/master/examples/scc_example.go
-//      * https://github.com/seri/goalgo/blob/master/examples/mst_example.go
+//      * examples/toposort_example.go
+//      * examples/cycle_example.go
+//      * examples/scc_example.go
+//      * examples/mst_example.go
+//      * examples/dijkstra_example.go
 //
 // References:
 //
@@ -40,7 +41,7 @@ import (
 // For simplicity, Edge is a read-only type. You can't even instantiate it.
 type Edge struct {
     from, to int
-    weight float32
+    weight float64
 }
 
 func (me Edge) From() int {
@@ -49,7 +50,7 @@ func (me Edge) From() int {
 func (me Edge) To() int {
     return me.to
 }
-func (me Edge) Weight() float32 {
+func (me Edge) Weight() float64 {
     return me.weight
 }
 func (me Edge) String() string {
@@ -106,7 +107,7 @@ func (me G) Vertices(u int) []int {
 }
 
 // Add a new edge u-v. Panic if either vertice is out of range. 
-func (me G) Add(u, v int, weight float32) {
+func (me G) Add(u, v int, weight float64) {
     me.checkBounds(u)
     me.checkBounds(v)
     edge := Edge { u, v, weight }
@@ -144,4 +145,3 @@ func AllEdges(g *G) []Edge {
     }
     return edges
 }
-

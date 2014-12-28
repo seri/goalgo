@@ -3,8 +3,7 @@
 // 
 // Examples:
 // 
-//      * https://github.com/seri/goalgo/blob/master/examples/heap_exercise.go
-//      shows how you may use this package in practice.
+//      * examples/pq_exercise.go shows how you may use this package in practice.
 // 
 // References:
 // 
@@ -17,7 +16,8 @@ import (
 
 // As long as a collection has a size, can compare any two elements, can swap any
 // two elements, and knows how to add and remove things in a first-in-first-out
-// manner, it can also behave as a priority queue. 
+// manner (slices and doubly linked lists, for example), it can also behave as a
+// priority queue. 
 type Interface interface {
     sort.Sortable
     Push(x interface{})
@@ -41,6 +41,9 @@ func Push(a Interface, x interface{}) {
 // O(lgN). Remove the element with the highest priority from the queue and
 // retrieve it.
 func Pop(a Interface) interface{} {
+    if a.Size() == 0 {
+        panic("Cannot pop from an empty priority queue")
+    }
     n := a.Size() - 1
     a.Exch(0, n)
     sink(a, 0, n)

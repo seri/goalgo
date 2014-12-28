@@ -21,7 +21,7 @@ func parseGraph(filename string, isDirected bool) *graph.G {
     for i := 0; i < E; i++ {
         var (
             u, v int
-            weight float32
+            weight float64
         )
         fmt.Fscanln(f, &u, &v, &weight)
         g.Add(u, v, weight)

@@ -1,10 +1,10 @@
 package main
 
 import (
-    "fmt"
-    "github.com/seri/goalgo/graph"
-    "./util/graphU"
-    "./util/reflectU"
+	"fmt"
+	"github.com/seri/goalgo/graph"
+	"./util/graphU"
+	"./util/reflectU"
 )
 
 type Algorithm func(*graph.G, int) *graph.SSSP
@@ -29,7 +29,7 @@ func produceOutput(in *Input, algo Algorithm) *Output {
 }
 
 func printDetail(algo Algorithm, out *Output) {
-	fmt.Printf("    %s: DistTo() = %.2f, len(PathTo()) = %d\n",
+	fmt.Printf("	%s: DistTo() = %.2f, len(PathTo()) = %d\n",
 		reflectU.TypeName(algo), out.dist, out.pathLen)
 }
 
@@ -37,8 +37,8 @@ func testAlgoPair(in *Input, a1, a2 Algorithm) bool {
 	out1, out2 := produceOutput(in, a1), produceOutput(in, a2)
 	if !out1.isEqual(out2) {
 		fmt.Println("Failed")
-		fmt.Printf("    Source: %d\n", in.source)
-		fmt.Printf("    Target: %d\n", in.target)
+		fmt.Printf("	Source: %d\n", in.source)
+		fmt.Printf("	Target: %d\n", in.target)
 		printDetail(a1, out1)
 		printDetail(a2, out2)
 		return false
@@ -56,11 +56,11 @@ func testAlgos(in *Input, algos []Algorithm) bool {
 }
 
 func main() {
-    fmt.Println("Test algorithms to find single-source shortest paths")
+	fmt.Println("Test algorithms to find single-source shortest paths")
 
-    filenames := []string {
-        "data/tinyEWDAG.txt",
-    }
+	filenames := []string {
+		"data/tinyEWDAG.txt",
+	}
 
 	algos := []Algorithm {
 		graph.Dijkstra,
@@ -68,9 +68,9 @@ func main() {
 		graph.BellmanFord,
 	}
 
-    for _, filename := range filenames {
+	for _, filename := range filenames {
 		fmt.Println("Input file: " + filename)
-        graf := graphU.ParseGraph(filename)
+		graf := graphU.ParseGraph(filename)
 		for source := 0; source < graf.V(); source++ {
 			for target := 0; target < graf.V(); target++ {
 				in := &Input { graf, source, target }
@@ -80,5 +80,5 @@ func main() {
 			}
 		}
 		fmt.Println("OK. All implementations seem to agree with each other.")
-    }
+	}
 }

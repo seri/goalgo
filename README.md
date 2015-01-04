@@ -1,21 +1,24 @@
 Package goalgo provides implementations of some fundamental algorithms, most of
-which come from the Algorithms course of the university of Princeton. There are
-runnable examples for most of these algorithms.
+which come from the Algorithms course of the university of Princeton.
+
+* Implementations should be clear and appropriately commented.
+* Each algorithm or data structure should be accompanied by a runnable example
+and if possible, a comprehensive test suite.
 
 [Package documentation](http://godoc.org/github.com/seri/goalgo)
 
-# List of implemented algorithms
+## List of implemented algorithms
 
-## Miscellanous
+### Miscellanous
 
 * Knuth Shuffle
 
-## Union Find
+### Union Find
 
 * Quick Find
 * Weighted Quick Union
 
-## Sorting
+### Sorting
 
 * Selection Sort
 * Insertion Sort
@@ -23,17 +26,17 @@ runnable examples for most of these algorithms.
 * Merge Sort
 * Quick Sort
 
-## Priority Queue
+### Priority Queue
 
 * Maximum Heap
 * Heap Sort
 
-## Symbol Table
+### Symbol Table
 
 * Binary Search Tree
 * Left-leaning Red Black Tree
 
-## Graph
+### Graph
 
 * Topological Sorting
 * Cycle Detection
@@ -41,7 +44,7 @@ runnable examples for most of these algorithms.
 * Kruskal's Minimum Spanning Tree
 * Dijkstra's Shortest Paths
 
-# How to run
+## How to run
 
 In case you are new to the Go ecosystem, this is a quick start to run things:
 

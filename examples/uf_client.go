@@ -49,9 +49,9 @@ func check(ufs []uf.UnionFind, e *Experiment) {
     fmt.Print("Cheking if all implementations match ... ")
     for i := 1; i < len(ufs); i++ {
         if ufs[i].Count() != ufs[0].Count() {
-            logU.Fail(LogFile, 
+            logU.Fail(LogFile,
                 fmt.Sprintf("%s.Count() returns %d while %s.Count() returns %d",
-                reflectU.TypeName(ufs[0]), ufs[0].Count(), 
+                reflectU.TypeName(ufs[0]), ufs[0].Count(),
                 reflectU.TypeName(ufs[i]), ufs[i].Count()), e)
         }
     }
@@ -61,10 +61,10 @@ func check(ufs []uf.UnionFind, e *Experiment) {
         x := ufs[0].Connected(p, q)
         for i := 1; i < len(ufs); i++ {
             if ufs[i].Connected(p, q) != x {
-                logU.Fail(LogFile, 
+                logU.Fail(LogFile,
                     fmt.Sprintf("%s.Connected(%d, %d) returns %t while " +
-                    "%s.Connected(%d, %d) returns %t", reflectU.TypeName(ufs[0]), 
-                    p, q, x, reflectU.TypeName(ufs[i]), 
+                    "%s.Connected(%d, %d) returns %t", reflectU.TypeName(ufs[0]),
+                    p, q, x, reflectU.TypeName(ufs[i]),
                     p, q, ufs[i].Connected(p, q)), e)
             }
         }

@@ -23,7 +23,7 @@ import (
 // How to quickly check whether adding an edge will create a cycle? Surely we
 // cannot simply run HasCycle() every time an edge is considered. The solution
 // is to use union find! Read [7] for proof. Complexity is O(E * log(V)).
-func MinSpanTree(graf *G) *G {
+func Kruskal(graf *G) *G {
     result := New(graf.V())
     cycleDetector := uf.NewQuickUnion(graf.V())
     edges := AllEdges(graf)

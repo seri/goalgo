@@ -17,10 +17,10 @@ func main() {
     for _, filename := range filenames {
         fmt.Println("Running Dijkstra's shortest paths against " + filename)
         graf := graphU.ParseGraph(filename)
-        sp := graph.Dijkstra(graf, source)
+        sssp := graph.Dijkstra(graf, source)
         for target := 0; target < graf.V(); target++ {
 			fmt.Printf("%d to %d (%.2f) %v\n",
-					   source, target, sp.DistTo(target), sp.PathTo(target))
+					   source, target, sssp.DistTo(target), sssp.PathTo(target))
         }
     }
 }

@@ -16,9 +16,9 @@ func main() {
     for _, filename := range filenames {
         fmt.Println("Constructing MST against " + filename)
         graf := graphU.ParseUndirectedGraph(filename)
-        mst := graph.MinSpanTree(graf)
+        mst := graph.Kruskal(graf)
         edges := graph.AllEdges(mst)
-        var sum float32 = 0
+        var sum float64 = 0
         for _, edge := range edges {
             if len(edges) < 20 {
                 fmt.Printf("    %v\n", edge)

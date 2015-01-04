@@ -116,7 +116,7 @@ func runWorker(w *Worker, e *Experiment) {
 }
 
 func runWorkers(ws []*Worker, e *Experiment) {
-    fmt.Printf("With input size %s and maximum value %s\n", 
+    fmt.Printf("With input size %s and maximum value %s\n",
                numberU.PPInt(e.size), numberU.PPInt(e.max))
     for _, w := range ws {
         runWorker(w, e)

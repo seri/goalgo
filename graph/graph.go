@@ -13,14 +13,14 @@
 //      3. Test if the graph is acyclic
 //      4. Divide the graph into strongly connected components
 //      5. Construct the minimum spanning tree
-//      6. Find shortest paths between any two vertices
+//      6. Find single-source shortest paths
 //
 // Examples
 //      
 //      * examples/toposort_example.go
 //      * examples/cycle_example.go
 //      * examples/scc_example.go
-//      * examples/mst_example.go
+//      * examples/kruskal_example.go
 //      * examples/dijkstra_example.go
 //
 // References:

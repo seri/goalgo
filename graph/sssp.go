@@ -1,9 +1,9 @@
 package graph
 
 import (
-    "container/list"
-    "math"
-    pq "github.com/seri/goalgo/pq/mutable"
+	"container/list"
+	"math"
+	pq "github.com/seri/goalgo/pq/mutable"
 )
 
 
@@ -15,12 +15,12 @@ type SSSP struct {
 }
 
 func newSSSP(nV int) *SSSP {
-    cost := make([]float64, nV)
-    prev := make([]int, nV)
-    for u := range cost {
-        cost[u] = math.Inf(1)
-        prev[u] = -1
-    }
+	cost := make([]float64, nV)
+	prev := make([]int, nV)
+	for u := range cost {
+		cost[u] = math.Inf(1)
+		prev[u] = -1
+	}
 	return &SSSP { cost, prev }
 }
 
@@ -30,20 +30,20 @@ func (me SSSP) DistTo(target int) float64 {
 }
 
 func listToIntSlice(l *list.List) []int {
-    slice := make([]int, 0)
-    for e := l.Front(); e != nil; e = e.Next() {
-        slice = append(slice, e.Value.(int))
-    }
-    return slice
+	slice := make([]int, 0)
+	for e := l.Front(); e != nil; e = e.Next() {
+		slice = append(slice, e.Value.(int))
+	}
+	return slice
 }
 
 // Lists all vertices in the shortest path from source to the given target.
 func (me SSSP) PathTo(target int) []int {
-    l := list.New()
-    for u := target; u != -1; u = me.prev[u] {
-        l.PushFront(u)
-    }
-    return listToIntSlice(l)
+	l := list.New()
+	for u := target; u != -1; u = me.prev[u] {
+		l.PushFront(u)
+	}
+	return listToIntSlice(l)
 }
 
 func (me *SSSP) relax(edge Edge) {
@@ -65,26 +65,26 @@ func (me *SSSP) relax(edge Edge) {
 // close they are to the source.
 func Dijkstra(graf *G, source int) *SSSP {
 	sssp := newSSSP(graf.V())
-    sssp.cost[source] = 0
+	sssp.cost[source] = 0
 
-    clone := make([]float64, graf.V())
-    copy(clone, sssp.cost)
-    queue := pq.New(pq.Reverse(pq.Float64Slice(clone)))
+	clone := make([]float64, graf.V())
+	copy(clone, sssp.cost)
+	queue := pq.New(pq.Reverse(pq.Float64Slice(clone)))
 
-    for !queue.Empty() {
-        u := queue.Pop()
-        for _, edge := range graf.Edges(u) {
-            v := edge.To()
-            newCost := edge.Weight() + sssp.cost[u]
-            if newCost < sssp.cost[v] {
-                sssp.cost[v] = newCost
-                sssp.prev[v] = u
-                queue.Change(v, newCost)
-            }
-        }
-    }
+	for !queue.Empty() {
+		u := queue.Pop()
+		for _, edge := range graf.Edges(u) {
+			v := edge.To()
+			newCost := edge.Weight() + sssp.cost[u]
+			if newCost < sssp.cost[v] {
+				sssp.cost[v] = newCost
+				sssp.prev[v] = u
+				queue.Change(v, newCost)
+			}
+		}
+	}
 
-    return sssp
+	return sssp
 }
 
 
@@ -99,9 +99,9 @@ func AcyclicSP(graf *G, source int) *SSSP {
 	sssp := newSSSP(graf.V())
 	sssp.cost[source] = 0
 	for _, u := range TopoSort(graf) {
-        for _, edge := range graf.Edges(u) {
+		for _, edge := range graf.Edges(u) {
 			sssp.relax(edge)
-        }
+		}
 	}
 	return sssp
 }

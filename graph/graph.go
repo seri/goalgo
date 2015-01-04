@@ -22,6 +22,7 @@
 //      * examples/scc_example.go
 //      * examples/kruskal_example.go
 //      * examples/dijkstra_example.go
+//      * examples/sssp_client.go
 //
 // References:
 //

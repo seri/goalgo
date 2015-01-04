@@ -42,7 +42,7 @@ and if possible, a comprehensive test suite.
 * Cycle Detection
 * Kosaraju-Sharir's Strongly Connected Components
 * Kruskal's Minimum Spanning Tree
-* Dijkstra's Shortest Paths
+* Shortest Paths with Dijkstra, AcyclicSP, and Bellman-Ford
 
 ## How to run
 
